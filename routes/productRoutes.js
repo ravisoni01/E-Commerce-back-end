@@ -7,7 +7,8 @@ import {
     getProductDetails,
     createProductReview,
     getProductReview,
-    deleteReview
+    deleteReview,
+    getAdminProducts
 } from '../controllers/productController'
 import { isAuthUser, authorizeRoles } from '../middleware/auth'
 
@@ -15,11 +16,13 @@ const router = express.Router()
 
 router.route('/products').get(getAllProducts)
 
-router.route('/product/new').post(isAuthUser, authorizeRoles('admin'), createProduct)
+router.route('/admin/product/new').post(isAuthUser, authorizeRoles('admin'), createProduct)
 
-router.route('/product/update/:id').put(isAuthUser, authorizeRoles('admin'), updateProduct)
+router.route('/admin/product/update/:id').put(isAuthUser, authorizeRoles('admin'), updateProduct)
 
-router.route('/product/delete/:id').delete(isAuthUser, authorizeRoles('admin'), deleteProduct)
+router.route('/admin/product/delete/:id').delete(isAuthUser, authorizeRoles('admin'), deleteProduct)
+
+router.route('/admin/products').get(getAdminProducts)
 
 router.route('/product/:id').get(getProductDetails)
 
